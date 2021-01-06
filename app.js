@@ -2,6 +2,8 @@
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 document.getElementById('clearAll').addEventListener('click', handleClearAll);
+
+
 // Event Handlers
 function handleSubmitForm(e) {
     e.preventDefault();
@@ -51,7 +53,7 @@ function checkTodo(e) {
 function deleteTodo(e) {
     let item = e.target.parentNode;
 
-    // call back so we wait for the transition effect to happen before it is removed
+    // call back so we wait for the transition effect to happen before item is removed
     item.addEventListener('transitionend', function () {
         item.remove();
     })
