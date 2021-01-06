@@ -1,6 +1,7 @@
 // Selectors
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
-
+document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
+document.getElementById('clearAll').addEventListener('click', handleClearAll);
 // Event Handlers
 function handleSubmitForm(e) {
     e.preventDefault();
@@ -9,6 +10,19 @@ function handleSubmitForm(e) {
         addToDo(input.value);
     input.value = '';
 }
+
+function handleClickDeleteOrCheck(e) {
+    if (e.target.name ==='checkButton')
+        checkTodo(e);
+
+    if(e.target.name === "deleteButton")
+        deleteTodo(e);
+}
+
+function handleClearAll(e) {
+    document.querySelector('ul').innerHTML = '';
+}
+
 
 // Helpers
 function addToDo(todo) {
@@ -25,3 +39,23 @@ function addToDo(todo) {
     ul.appendChild(li);
 
 }
+
+function checkTodo(e) {
+    let item = e.target.parentNode;
+    if (item.style.textDecoration === 'line-through')
+        item.style.textDecoration = 'none';
+    else
+        item.style.textDecoration = 'line-through';
+}
+
+function deleteTodo(e) {
+    let item = e.target.parentNode;
+
+    // call back so we wait for the transition effect to happen before it is removed
+    item.addEventListener('transitionend', function () {
+        item.remove();
+    })
+
+    item.classList.add('todo-list-item-fall');
+}
+
